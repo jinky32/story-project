@@ -28,6 +28,14 @@
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
      #}
+        {% block stylesheets %}
+            {% stylesheets filter='cssrewrite'
+            '@MopaBootstrapBundle/Resources/public/bootstrap/dist/css/bootstrap.min.css'%}
+            {# These lines should be added#}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets%}
+
+        {% endblock stylesheets %}
     {% endblock head_script %}
 
     <title>{% block title %}Mopa Bootstrap Bundle{% endblock title %}</title>
@@ -112,6 +120,27 @@
     To speed up page loads save a copy of jQuery in your project and override this block to include the correct path
     Otherwise the regeneration is done on every load in dev more with use_controller: true
      #}
+    {% javascripts
+
+    'https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'
+    '@MopaBootstrapBundle/Resources/public/bootstrap/js/transition.js'
+    '@MopaBootstrapBundle/Resources/public/bootstrap/js/modal.js'
+    '@MopaBootstrapBundle/Resources/public/bootstrap/js/dropdown.js'
+    '@MopaBootstrapBundle/Resources/public/bootstrap/js/scrollspy.js'
+    '@MopaBootstrapBundle/Resources/public/bootstrap/js/tab.js'
+    '@MopaBootstrapBundle/Resources/public/bootstrap/js/tooltip.js'
+    '@MopaBootstrapBundle/Resources/public/bootstrap/js/popover.js'
+    '@MopaBootstrapBundle/Resources/public/bootstrap/js/alert.js'
+    '@MopaBootstrapBundle/Resources/public/bootstrap/js/button.js'
+    '@MopaBootstrapBundle/Resources/public/bootstrap/js/collapse.js'
+    '@MopaBootstrapBundle/Resources/public/bootstrap/js/carousel.js'
+    '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-collection.js'
+    '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-subnav.js'
+    '@MopaBootstrapBundle/Resources/public/js/html5bp_plugins.js'
+    '@MopaBootstrapBundle/Resources/public/js/html5bp_script.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
     {% block foot_script_assetic %}
         {# Please add the javascripts you need in your project #}
     {% endblock foot_script_assetic %}

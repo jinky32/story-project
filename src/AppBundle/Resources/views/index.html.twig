@@ -1,5 +1,5 @@
 {#{% extends '@MopaBootstrap/base.html.twig' %}#}
-{% extends 'AppBundle::base.html.twig' %}
+{% embed 'AppBundle::base.html.twig' %}
 {% block html_tag %}
 <html lang="en">
 {% endblock html_tag %}
@@ -12,3 +12,5 @@
         </div>
     {% endblock page_header %}
 {% block content_div_end %}</div>{% endblock content_div_end %}
+
+{% endembed %}
