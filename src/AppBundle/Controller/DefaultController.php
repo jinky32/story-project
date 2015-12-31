@@ -6,6 +6,7 @@ namespace AppBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 //class HelloController extends Controller
 /**
@@ -25,15 +26,26 @@ class DefaultController
      * @Route("/hello/{name}", name="hello")
      *
      */
-    public function indexAction($name)
+    public function indexAction($name, Request $request)
     {
+        $locale = $request->getLocale();
         return $this->templating->renderResponse(
             'AppBundle::index.html.twig',
-            array('name' => $name)
+            array('name' => $name,
+                'locale' => $locale)
         );
     }
 
-    public function stuartAction(){
-        print 'hello';
+    /**
+     * @Route("/stuart", name="stuart")
+     *
+     */
+    public function stuartAction(Request $request){
+
+
+
+//            $locale = $request->getLocale();
+//            return print_r($locale);
+
     }
 }
