@@ -12,6 +12,13 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class User extends BaseUser
 {
+
+    public function __construct()
+    {
+        parent::__construct();
+        // your own logic
+    }
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -19,9 +26,29 @@ class User extends BaseUser
      */
     protected $id;
 
-    public function __construct()
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $childId;
+
+    /**
+     * @return mixed
+     */
+    public function getChildId()
     {
-        parent::__construct();
-        // your own logic
+        return $this->childId;
     }
+
+    /**
+     * @param mixed $childId
+     */
+    public function setChildId($childId)
+    {
+        $this->childId = $childId;
+    }
+
+
+
 }
+
