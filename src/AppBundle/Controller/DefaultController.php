@@ -2,20 +2,50 @@
 
 namespace AppBundle\Controller;
 
+//use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
+use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-class DefaultController extends Controller
+//class HelloController extends Controller
+/**
+ * @Route(service="app.hello_controller")
+ */
+class DefaultController
 {
-    /**
-     * @Route("/", name="homepage")
-     */
-    public function indexAction(Request $request)
+
+    private $templating;
+
+    public function __construct(EngineInterface $templating)
     {
-        // replace this example code with whatever you need
-        return $this->render('default/index.html.twig', array(
-            'base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..'),
-        ));
+        $this->templating = $templating;
+    }
+
+    /**
+     * @Route("/hello/{name}", name="hello")
+     *
+     */
+    public function indexAction($name, Request $request)
+    {
+        $locale = $request->getLocale();
+        return $this->templating->renderResponse(
+            'AppBundle::index.html.twig',
+            array('name' => $name,
+                'locale' => $locale)
+        );
+    }
+
+    /**
+     * @Route("/stuart", name="stuart")
+     *
+     */
+    public function stuartAction(Request $request){
+
+
+
+//            $locale = $request->getLocale();
+//            return print_r($locale);
+
     }
 }
