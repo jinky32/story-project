@@ -33,7 +33,7 @@ class Child
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_of_birth", type="date")
+     * @ORM\Column(name="date_of_birth", type="datetime")
      */
     private $dateOfBirth;
 

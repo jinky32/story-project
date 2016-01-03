@@ -1,0 +1,12 @@
+AppBundle\Entity\Child:
+    child{1..10}:
+        name: <name()>
+        dateOfBirth: <dateTimeBetween($startDate = '-30 years', $endDate = 'now')>
+#        parent: <parentName()>
+
+
+#AppBundle\Entity\User:
+#
+#username
+#email
+#password
