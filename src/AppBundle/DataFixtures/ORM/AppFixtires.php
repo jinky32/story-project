@@ -23,10 +23,6 @@ class AppFixtures extends AbstractLoader
             'John',
             'Jane',
             'Sarah',
-            'Stuart',
-            'Catherine',
-            'Kate',
-            'Chris,'
         );
 
         return $names[array_rand($names)];

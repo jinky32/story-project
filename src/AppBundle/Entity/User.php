@@ -27,13 +27,6 @@ class User extends BaseUser
     protected $id;
 
 
-    /**
-     * @return mixed
-     */
-    public function getChildId()
-    {
-        return $this->childId;
-    }
 
 
 
