@@ -35,13 +35,6 @@ class Story
      */
     private $text;
 
-    /**
-     * @var array
-     *
-     * @ORM\Column(name="word_ids", type="array")
-     */
-    private $wordIds;
-
 
     /**
      * Get id
@@ -101,28 +94,5 @@ class Story
         return $this->text;
     }
 
-    /**
-     * Set wordIds
-     *
-     * @param array $wordIds
-     *
-     * @return Story
-     */
-    public function setWordIds($wordIds)
-    {
-        $this->wordIds = $wordIds;
-
-        return $this;
-    }
-
-    /**
-     * Get wordIds
-     *
-     * @return array
-     */
-    public function getWordIds()
-    {
-        return $this->wordIds;
-    }
 }
 

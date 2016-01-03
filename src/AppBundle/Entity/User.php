@@ -28,11 +28,6 @@ class User extends BaseUser
 
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    protected $childId;
-
-    /**
      * @return mixed
      */
     public function getChildId()
@@ -40,13 +35,7 @@ class User extends BaseUser
         return $this->childId;
     }
 
-    /**
-     * @param mixed $childId
-     */
-    public function setChildId($childId)
-    {
-        $this->childId = $childId;
-    }
+
 
 
 

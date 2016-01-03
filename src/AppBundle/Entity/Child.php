@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Entity\User;
 
 /**
  * Child
@@ -28,12 +29,6 @@ class Child
      */
     private $name;
 
-    /**
-     * @var array
-     *
-     * @ORM\Column(name="stories", type="array")
-     */
-    private $stories;
 
     /**
      * @var \DateTime
@@ -41,6 +36,29 @@ class Child
      * @ORM\Column(name="date_of_birth", type="date")
      */
     private $dateOfBirth;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+
+    private $parent;
+
+    /**
+     * @return User
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * @param User $parent
+     */
+    public function setParent(User $parent)
+    {
+        $this->parent = $parent;
+    }
 
 
     /**
@@ -77,29 +95,6 @@ class Child
         return $this->name;
     }
 
-    /**
-     * Set stories
-     *
-     * @param array $stories
-     *
-     * @return Child
-     */
-    public function setStories($stories)
-    {
-        $this->stories = $stories;
-
-        return $this;
-    }
-
-    /**
-     * Get stories
-     *
-     * @return array
-     */
-    public function getStories()
-    {
-        return $this->stories;
-    }
 
     /**
      * Set dateOfBirth
