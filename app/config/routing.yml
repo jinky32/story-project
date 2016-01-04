@@ -1,6 +1,16 @@
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
 
+#fos_user_security_login:
+#    path:      /account/login
+#    defaults:  { _controller: FOSUserBundle:Security:login, _method: POST }
+
+#fos_user_profile_show:
+#    pattern: /profile/{username}
+#    defaults: { _controller: FOSUserBundle:Profile:show }
+#    requirements:
+#        _method: GET
+
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
