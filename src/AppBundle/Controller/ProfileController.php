@@ -24,6 +24,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 //use Sensio\Bundle\FrameworkExtraBundle\Routing;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use AppBundle\Entity\ChildRepository;
 
 
 
@@ -40,11 +41,18 @@ class ProfileController extends Controller
      */
     public function showAction()
     {
+        //todo write a query in ChildRepo to get children by parentid, then call this here
+        $em = $this->getDoctrine()->getManager();
+        $children = $em->getRepository('AppBundle:Child')
+            ->findChildrenByParent(20);
+//        ->learnDQL();
+       // $parentsChlidren = $children->getParent()->getName();
+
         $user = $this->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {
             throw new AccessDeniedException('This user does not have access to this section.');
         }
-        dump($user);
+        dump($children);
         return $this->render('FOSUserBundle:Profile:show.html.twig', array(
             'user' => $user
         ));
@@ -102,3 +110,6 @@ class ProfileController extends Controller
         ));
     }
 }
+
+
+

@@ -42,19 +42,11 @@ class Child
     private $dateOfBirth;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="id")
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
 
     private $parent;
-
-    function __construct($id, $name, $dateOfBirth, $parent)
-    {
-        $this->id = $id;
-        $this->name = $name;
-        $this->dateOfBirth = $dateOfBirth;
-        $this->parent = $parent;
-    }
 
     /**
      * @return User
