@@ -13,6 +13,7 @@ use AppBundle\Entity\User;
  */
 class Child
 {
+
     /**
      * @var integer
      *
@@ -46,6 +47,14 @@ class Child
      */
 
     private $parent;
+
+    function __construct($id, $name, $dateOfBirth, $parent)
+    {
+        $this->id = $id;
+        $this->name = $name;
+        $this->dateOfBirth = $dateOfBirth;
+        $this->parent = $parent;
+    }
 
     /**
      * @return User
