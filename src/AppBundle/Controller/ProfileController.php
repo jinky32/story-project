@@ -41,10 +41,12 @@ class ProfileController extends Controller
      */
     public function showAction()
     {
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+
         //todo write a query in ChildRepo to get children by parentid, then call this here
         $em = $this->getDoctrine()->getManager();
         $children = $em->getRepository('AppBundle:Child')
-            ->findChildrenByParent(20);
+            ->findChildrenByParent($user->getId());
 //        ->learnDQL();
        // $parentsChlidren = $children->getParent()->getName();
 
