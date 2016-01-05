@@ -1,7 +1,15 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 <div class="fos_user_user_show">
-    <h1>WOOT!</h1>
+    <h1>WOOT2!</h1>
     <p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
     <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
+    <h2>Children</h2>
+    <ul>
+        {% for child in children %}
+            {#<li>{{ child.name|e }}</li>#}
+       <li><a href="{{ path('child_show', { 'id': child.id }) }}">{{ child.name|e }}</a></li>
+        {% endfor %}
+    </ul>
+    {{ dump(children) }}
 </div>

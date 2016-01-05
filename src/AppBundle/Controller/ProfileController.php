@@ -56,7 +56,8 @@ class ProfileController extends Controller
         }
         dump($children);
         return $this->render('FOSUserBundle:Profile:show.html.twig', array(
-            'user' => $user
+            'user' => $user,
+            'children' => $children
         ));
     }
 
