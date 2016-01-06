@@ -1,19 +1,15 @@
-hwi_oauth_redirect:
-    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
-    prefix:   /connect
-
-hwi_oauth_login:
-    resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
-    prefix:   /login
-
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
 
-facebook_login:
-    path: /login/check-facebook
+#fos_user_security_login:
+#    path:      /account/login
+#    defaults:  { _controller: FOSUserBundle:Security:login, _method: POST }
 
-google_login:
-    path: /login/check-google
+#fos_user_profile_show:
+#    pattern: /profile/{username}
+#    defaults: { _controller: FOSUserBundle:Profile:show }
+#    requirements:
+#        _method: GET
 
 app:
     resource: "@AppBundle/Controller/"

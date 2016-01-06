@@ -41,7 +41,7 @@ twig:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ ]
+    bundles:        [ AppBundle ]
     #java: /usr/bin/java
     filters:
         cssrewrite: ~
@@ -85,28 +85,16 @@ fos_user:
     firewall_name: main
     user_class: AppBundle\Entity\User
 
-hwi_oauth:
-    # list of names of the firewalls in which this bundle is active, this setting MUST be set
-    firewall_names: [secured_area]
+mopa_bootstrap:
+    form: ~  # Adds twig form theme  support
+    menu: ~  # enables twig helpers for menu
 
-    # an optional setting to configure a query string parameter which can be used to redirect
-    # the user after authentication, e.g. /connect/facebook?_destination=/my/destination will
-    # redirect the user to /my/destination after facebook authenticates them.  If this is not
-    # set then the user will be redirected to the original resource that they requested, or
-    # the base address if no resource was requested.  This is similar to the behaviour of
-    # [target_path_parameter for form login](http://symfony.com/doc/2.0/cookbook/security/form_login.html).
-    # target_path_parameter: _destination
-    resource_owners:
-        facebook:
-            type:                facebook
-            client_id:           "1681578882122393"
-            client_secret:       "745818902380c33480b2c02d848a1d3e"
-            scope:               ""
-        google:
-            type:                google
-            client_id:           "987471566348-fhfh4ea6eiu5va047md6da6v19ps5rd9.apps.googleusercontent.com"
-            client_secret:       "_a_RQK_2hfgPbcCwS0zMjkO-"
-            scope:               "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"
-
-            options:
-                csrf: true
+hautelook_alice:
+    db_drivers:
+        orm: ~          # Enable Doctrine ORM if is registered
+#        mongodb: ~      # Enable Doctrine ODM if is registered
+#        phpcr: ~        # Enable Doctrine PHPCR ODM if is registered
+    locale: en_US       # Locale to used for faker; must be a valid Faker locale otherwise will fallback to en_EN
+    seed: 1             # A seed to make sure faker generates data consistently across runs, set to null to disable
+    persist_once: false # Only persist objects once if multiple files are passed
+    loading_limit: 5    # Maximum number of time the loader will try to load the files passed
