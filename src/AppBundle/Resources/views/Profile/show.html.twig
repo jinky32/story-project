@@ -27,7 +27,14 @@
                 </div>
                 <div class="col-sm-3">
                     {% block content_sidebar %}
-                        <h2>Sidebar</h2>
+                        <h2>Listed Children</h2>
+                        <ul>
+                            {% for child in children %}
+                                {#<li>{{ child.name|e }}</li>#}
+                                <li><a href="{{ path('child_show', { 'id': child.id }) }}">{{ child.name|e }}</a>
+                                    <a href="{{ path('child_edit', { 'id': child.id }) }}">(edit)</a></li>
+                            {% endfor %}
+                        </ul>
                     {% endblock content_sidebar %}
                 </div>
             {% endblock content %}

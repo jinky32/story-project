@@ -4,12 +4,17 @@
     <h1>WOOT2!</h1>
     <p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
     <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
-    <h2>Children</h2>
-    <ul>
-        {% for child in children %}
-            {#<li>{{ child.name|e }}</li>#}
-       <li><a href="{{ path('child_show', { 'id': child.id }) }}">{{ child.name|e }}</a></li>
-        {% endfor %}
-    </ul>
-    {{ dump(children) }}
+    {#<div class="col-sm-3">#}
+        {#{% block content_sidebar %}#}
+            {#<h2>Sidebar</h2>#}
+        {#{% endblock content_sidebar %}#}
+    {#</div>#}
+    {#<h2>Children</h2>#}
+    {#<ul>#}
+        {#{% for child in children %}#}
+            {#&#123;&#35;<li>{{ child.name|e }}</li>&#35;&#125;#}
+       {#<li><a href="{{ path('child_show', { 'id': child.id }) }}">{{ child.name|e }}</a></li>#}
+        {#{% endfor %}#}
+    {#</ul>#}
+    {#{{ dump(children) }}#}
 </div>
