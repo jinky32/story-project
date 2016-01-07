@@ -41,6 +41,7 @@ class Child
      */
     private $dateOfBirth;
 
+    //todo find ot why the parent variable here and Id variable in AppBundle:User are not mapped correctly
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="id")
      * @ORM\JoinColumn(onDelete="CASCADE")
