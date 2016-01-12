@@ -66,10 +66,4 @@ DirectoryIndex app.php
         # RedirectTemp cannot be used instead
     </IfModule>
 </IfModule>
-<IfModule mod_rewrite.c>
-RewriteEngine On
-RewriteCond %{HTTP_HOST} ^pickingorganic.org/$ [NC,OR]
-RewriteCond %{HTTP_HOST} ^www.pickingorganic.org/$
-RewriteCond %{REQUEST_URI} !web/
-RewriteRule (.*) /web/$1 [L]
-</IfModule>
+
