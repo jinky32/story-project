@@ -26,7 +26,7 @@ set :scm, :git
 # set :pty, true
 
 # Default value for :linked_files is []
-set :linked_files, fetch(:linked_files, []).push('app/config/parameters.yml', 'web/.htaccess')
+set :linked_files, fetch(:linked_files, []).push('app/config/parameters.yml')
 
 
 # Default value for linked_dirs is []
