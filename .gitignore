@@ -9,7 +9,7 @@
 /build/
 /vendor/
 /bin/
-/composer.phargit
+/composer.phar
 /.idea
 .idea/workspace.xml
 
