@@ -70,8 +70,7 @@ namespace :deploy do
     task :restart do
         on roles(:app), in: :sequence, wait: 5 do
             # This is present b/c 'cap production deploy' is blowing up w/o it.
-            # Not sure what's up with that, the Google hasn't helped,
-and I'm tired
+            # Not sure what's up with that, the Google hasn't helped, and I'm tired
             # of screwing with it.  It stays in for now.
         end
     end
