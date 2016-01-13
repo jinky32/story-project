@@ -27,7 +27,7 @@ class AppKernel extends Kernel
 //            new Sensio\Bundle\DistributionBundle\SensioDistributionBundle(),
 //            new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle(),
 //            new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
-//            new Hautelook\AliceBundle\HautelookAliceBundle(),
+            new Hautelook\AliceBundle\HautelookAliceBundle(),
 
         );
 
