@@ -22,12 +22,12 @@ class AppKernel extends Kernel
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             //TODO put the below back into the dev, test array
-            new Symfony\Bundle\DebugBundle\DebugBundle();
-            new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
-            new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
-            new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
-            new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle();
-            new Hautelook\AliceBundle\HautelookAliceBundle();
+            new Symfony\Bundle\DebugBundle\DebugBundle(),
+            new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle(),
+            new Sensio\Bundle\DistributionBundle\SensioDistributionBundle(),
+            new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle(),
+            new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
+            new Hautelook\AliceBundle\HautelookAliceBundle(),
 
         );
 
