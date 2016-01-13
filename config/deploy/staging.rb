@@ -1,4 +1,4 @@
-set :stage, :production
+set :stage, :staging
 
 role :web, %w{stuartbrown@stuartbrown.name}
 role :app, %w{stuartbrown@stuartbrown.name}
@@ -12,7 +12,7 @@ set :clear_controllers, false
 
 
 # Symfony environment
-set :symfony_env,  "prod"
+set :symfony_env,  "dev"
 
 # Symfony application path
 set :app_path,              "app"
