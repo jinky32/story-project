@@ -24,7 +24,7 @@ set :web_path,              "web"
 set :log_path,              fetch(:app_path) + "/logs"
 
 # Symfony cache path
-set :cache_path,            fetch(:app_path) + "/cache"
+#set :cache_path,            fetch(:app_path) + "/cache"
 
 # Symfony config file path
 set :app_config_path,       fetch(:app_path) + "/config"
@@ -39,7 +39,7 @@ set :controllers_to_clear, ["app_*.php"]
 set :linked_dirs,           [fetch(:log_path), fetch(:web_path) + "/uploads"]
 
 # Dirs that need to be writable by the HTTP Server (i.e. cache, log dirs)
-set :file_permissions_paths,         [fetch(:log_path), fetch(:cache_path)]
+#set :file_permissions_paths,         [fetch(:log_path), fetch(:cache_path)]
 
 # Name used by the Web Server (i.e. www-data for Apache)
 set :file_permissions_users, ['www-data']
