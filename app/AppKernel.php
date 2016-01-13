@@ -21,16 +21,23 @@ class AppKernel extends Kernel
             new Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            //TODO put the below back into the dev, test array
+            new Symfony\Bundle\DebugBundle\DebugBundle();
+            new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
+            new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
+            new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
+            new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle();
+            new Hautelook\AliceBundle\HautelookAliceBundle();
 
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {
-            $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();
-            $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
-            $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
-            $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
-            $bundles[] = new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle();
-            $bundles[] = new Hautelook\AliceBundle\HautelookAliceBundle();
+//            $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();
+//            $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
+//            $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
+//            $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
+//            $bundles[] = new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle();
+//            $bundles[] = new Hautelook\AliceBundle\HautelookAliceBundle();
            
         }
 
