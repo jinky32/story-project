@@ -58,8 +58,7 @@ namespace :deploy do
     task :composer_install do
         on roles(:web) do
             within release_path do
-                execute 'composer', 'install',
-'--optimize-autoloader'
+                execute 'composer', 'install', '--optimize-autoloader'
             end
         end
     end
