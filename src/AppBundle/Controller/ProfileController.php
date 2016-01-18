@@ -41,7 +41,7 @@ class ProfileController extends Controller
      */
     public function showAction($username)
     {
-        //TODO user the User object to generate the page so that the profile can be public.  {username in URL must drive page content}
+        //TODO consider http://symfony.com/doc/current/best_practices/security.html#the-security-annotation as an alternative way to lock down some content
 //        $user = $this->get('security.token_storage')->getToken()->getUser();
 //        $user = $this->getUser();
         $user = $this->get('fos_user.user_manager')->findUserByUsername($username);
