@@ -52,10 +52,15 @@ class ProfileController extends Controller
 //        $newUser = $this->get('fos_user.user_manager')->findUserByUsername($username);
 //        dump($newUser);
 
+
+        //begin test to see if signed in user is the owner of the profile
 //        $user = $this->getUser();
 //        if (!is_object($user) || !$user instanceof UserInterface) {
 //            throw new AccessDeniedException('This user does not have access to this section.');
 //        }
+
+        //end test to see if signed in user is the owner of the profile
+
         dump($user);
         return $this->render('@App/Profile/show.html.twig', array(
             'user' => $user,
