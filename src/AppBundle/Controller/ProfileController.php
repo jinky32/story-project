@@ -39,22 +39,24 @@ class ProfileController extends Controller
      * @Route("/profile/{username}")
      * @Method({"GET"})
      */
-    public function showAction()
+    public function showAction($username)
     {
-        $user = $this->get('security.token_storage')->getToken()->getUser();
+        //TODO user the User object to generate the page so that the profile can be public.  {username in URL must drive page content}
+//        $user = $this->get('security.token_storage')->getToken()->getUser();
+//        $user = $this->getUser();
+        $user = $this->get('fos_user.user_manager')->findUserByUsername($username);
 
-        //todo write a query in ChildRepo to get children by parentid, then call this here
         $em = $this->getDoctrine()->getManager();
         $children = $em->getRepository('AppBundle:Child')
             ->findChildrenByParent($user->getId());
-//        ->learnDQL();
-       // $parentsChlidren = $children->getParent()->getName();
+//        $newUser = $this->get('fos_user.user_manager')->findUserByUsername($username);
+//        dump($newUser);
 
-        $user = $this->getUser();
-        if (!is_object($user) || !$user instanceof UserInterface) {
-            throw new AccessDeniedException('This user does not have access to this section.');
-        }
-        dump($children);
+//        $user = $this->getUser();
+//        if (!is_object($user) || !$user instanceof UserInterface) {
+//            throw new AccessDeniedException('This user does not have access to this section.');
+//        }
+        dump($user);
         return $this->render('@App/Profile/show.html.twig', array(
             'user' => $user,
             'children' => $children

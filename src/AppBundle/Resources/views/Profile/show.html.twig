@@ -19,6 +19,7 @@
         <div class="row">
             {% block content %}
                 <div class="col-sm-9">
+
                     {% block content_content %}
                         {% block fos_user_content %}
                             {% include "@App/Profile/show_content.html.twig" %}
@@ -27,6 +28,9 @@
                 </div>
                 <div class="col-sm-3">
                     {% block content_sidebar %}
+                        {#<h2>Test</h2>#}
+                    {#{{  newUser. }}#}
+
                         <h2>Listed Children</h2>
                         <ul>
                             {% for child in children %}
