@@ -41,9 +41,11 @@ class ProfileController extends Controller
      */
     public function showAction($username)
     {
+        //This function allows for public profiles / profile URLs by taking the URL param as an argument to query to DB however
+        //the childController method for a child's profile should use the username of the logged in user so that only they can see the pages.
         //TODO consider http://symfony.com/doc/current/best_practices/security.html#the-security-annotation as an alternative way to lock down some content
 //        $user = $this->get('security.token_storage')->getToken()->getUser();
-//        $user = $this->getUser();
+
         $user = $this->get('fos_user.user_manager')->findUserByUsername($username);
 
         $em = $this->getDoctrine()->getManager();

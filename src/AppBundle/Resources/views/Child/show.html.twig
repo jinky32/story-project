@@ -35,7 +35,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ path('child_edit', { 'id': entity.id }) }}">
+                                <a href="{{ path('child_edit', { 'parentUsername':app.user.username, 'id': entity.id }) }}">
                                     Edit
                                 </a>
                             </li>

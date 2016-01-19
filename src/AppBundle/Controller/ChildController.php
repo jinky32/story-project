@@ -102,7 +102,7 @@ class ChildController extends Controller
     /**
      * Finds and displays a Child entity.
      *
-     * @Route("/{id}", name="child_show")
+     * @Route("/{parentUsername}/{id}", name="child_show")
      * @Method("GET")
      * @Template()
      */
@@ -127,7 +127,7 @@ class ChildController extends Controller
     /**
      * Displays a form to edit an existing Child entity.
      *
-     * @Route("/{id}/edit", name="child_edit")
+     * @Route("/{parentUsername}/{id}/edit", name="child_edit")
      * @Method("GET")
      * @Template()
      */

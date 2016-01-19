@@ -31,11 +31,12 @@
                     {#{{  newUser. }}#}
                         {%if is_granted("ROLE_USER") and app.user.username == user.username%}
                         <h2>Listed Children</h2>
+                            {{ dump(user.username) }}
                         <ul>
                             {% for child in children %}
                                 {#<li>{{ child.name|e }}</li>#}
-                                <li><a href="{{ path('child_show', { 'id': child.id }) }}">{{ child.name|e }}</a>
-                                    <a href="{{ path('child_edit', { 'id': child.id }) }}">(edit)</a></li>
+                                <li><a href="{{ path('child_show', { 'parentUsername':app.user.username, 'id': child.id }) }}">{{ child.name|e }}</a>
+                                    <a href="{{ path('child_edit', { 'parentUsername':app.user.username, 'id': child.id }) }}">(edit)</a></li>
                             {% endfor %}
                         </ul>
                         {%endif%}
