@@ -13,7 +13,7 @@ use AppBundle\Form\ChildType;
 /**
  * Child controller.
  *
- * @Route("/child")
+ * @Route("/profile/{parentName}/child")
  */
 class ChildController extends Controller
 {
@@ -102,12 +102,13 @@ class ChildController extends Controller
     /**
      * Finds and displays a Child entity.
      *
-     * @Route("/{parentUsername}/{id}", name="child_show")
+     * @Route("/{id}", name="child_show")
      * @Method("GET")
      * @Template()
      */
     public function showAction($id)
     {
+        //TODO update the show, edit, update and delete action so that we can use childs name in URL rather than ID.  Need ot use parent name or some unique ID so chlidren with smae name arent deleted? Or use a redirect?
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('AppBundle:Child')->find($id);
@@ -127,10 +128,11 @@ class ChildController extends Controller
     /**
      * Displays a form to edit an existing Child entity.
      *
-     * @Route("/{parentUsername}/{id}/edit", name="child_edit")
+     * @Route("/{id}/edit", name="child_edit")
      * @Method("GET")
      * @Template()
      */
+
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -237,8 +239,8 @@ class ChildController extends Controller
      */
     private function createDeleteForm($id)
     {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('child_delete', array('id' => $id)))
+                return $this->createFormBuilder()
+            ->setAction($this->generateUrl('child_delete', array('parentName' =>$this->getUser()->getUsername(), 'id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
