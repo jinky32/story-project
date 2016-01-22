@@ -15,16 +15,16 @@
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('child_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td><a href="{{ path('child_show', { 'childName': entity.name }) }}">{{ entity.name }}</a></td>
                 <td>{{ entity.name }}</td>
                 <td>{% if entity.dateOfBirth %}{{ entity.dateOfBirth|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>
                 <ul>
                     <li>
-                        <a href="{{ path('child_show', { 'id': entity.id }) }}">show</a>
+                        <a href="{{ path('child_show', { 'childName': entity.name }) }}">show</a>
                     </li>
                     <li>
-                        <a href="{{ path('child_edit', { 'id': entity.id }) }}">edit</a>
+                        <a href="{{ path('child_edit', { 'childName': entity.name }) }}">edit</a>
                     </li>
                 </ul>
                 </td>

@@ -12,7 +12,7 @@
             {% block content %}
                 <div class="col-sm-9">
                     {% block content_content %}
-                        {{ dump(entity) }}
+
                         <table class="record_properties">
                             <tbody>
                             <tr>
@@ -31,12 +31,12 @@
                         </table>
                         <ul class="record_actions">
                             <li>
-                                <a href="{{ path('child', { 'parentName':app.user.username, 'id': entity.id }) }}">
+                                <a href="{{ path('child', { 'parentName':app.user.username, 'childName': entity.name }) }}">
                                     Back to the list
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ path('child_edit', { 'parentName':app.user.username, 'id': entity.id }) }}">
+                                <a href="{{ path('child_edit', { 'parentName':app.user.username, 'childName': entity.name }) }}">
                                 {#<a href="{{ path('child_edit', { 'id': entity.id }) }}">#}
                                     Edit
                                 </a>
@@ -50,7 +50,7 @@
                         {#<h2>Listed Children</h2>#}
                         {#<ul>#}
                             {#{% for child in children %}#}
-                                {#{#<li>{{ child.name|e }}</li>#}#}
+                                {#<li>{{ child.name|e }}</li>#}
                                 {#<li><a href="{{ path('child_show', { 'id': child.id }) }}">{{ child.name|e }}</a>#}
                                     {#<a href="{{ path('child_edit', { 'id': child.id }) }}">(edit)</a></li>#}
                             {#{% endfor %}#}
