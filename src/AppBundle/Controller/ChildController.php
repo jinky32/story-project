@@ -13,7 +13,7 @@ use AppBundle\Form\ChildType;
 /**
  * Child controller.
  *
- * @Route("/profile/{parentName}/child")
+ * @Route("/profile/{parentName}/{childName}")
  */
 class ChildController extends Controller
 {
@@ -21,7 +21,7 @@ class ChildController extends Controller
     /**
      * Lists all Child entities.
      *
-     * @Route("/", name="child")
+     * @Route("/all", name="child")
      * @Method("GET")
      * @Template()
      */
@@ -102,7 +102,7 @@ class ChildController extends Controller
     /**
      * Finds and displays a Child entity.
      *
-     * @Route("/{childName}", name="child_show")
+     * @Route("/", name="child_show")
      * @Method("GET")
      * @Template()
      */
@@ -129,7 +129,7 @@ class ChildController extends Controller
     /**
      * Displays a form to edit an existing Child entity.
      *
-     * @Route("/{childName}/edit", name="child_edit")
+     * @Route("/edit", name="child_edit")
      * @Method("GET")
      * @Template()
      */
@@ -177,7 +177,7 @@ class ChildController extends Controller
     /**
      * Edits an existing Child entity.
      *
-     * @Route("/{childName}", name="child_update")
+     * @Route("/", name="child_update")
      * @Method("PUT")
      * @Template("AppBundle:Child:edit.html.twig")
      */
@@ -210,7 +210,7 @@ class ChildController extends Controller
     /**
      * Deletes a Child entity.
      *
-     * @Route("/{childName}", name="child_delete")
+     * @Route("/", name="child_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, $childName)
