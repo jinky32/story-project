@@ -13,7 +13,7 @@ use AppBundle\Form\ChildType;
 /**
  * Child controller.
  *
- * @Route("/child")
+ * @Route("/profile/{parentName}/{childName}")
  */
 class ChildController extends Controller
 {
@@ -21,7 +21,7 @@ class ChildController extends Controller
     /**
      * Lists all Child entities.
      *
-     * @Route("/", name="child")
+     * @Route("/all", name="child")
      * @Method("GET")
      * @Template()
      */
@@ -53,7 +53,7 @@ class ChildController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('child_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('child_show', array('parentName' =>$this->getUser()->getUsername(), 'childName' => $entity->getName())));
         }
 
         return array(
@@ -102,21 +102,23 @@ class ChildController extends Controller
     /**
      * Finds and displays a Child entity.
      *
-     * @Route("/{id}", name="child_show")
+     * @Route("/", name="child_show")
      * @Method("GET")
      * @Template()
      */
-    public function showAction($id)
+    public function showAction($childName)
     {
+        //TODO update the show, edit, update and delete action so that we can use childs name in URL rather than ID.  Need ot use parent name or some unique ID so chlidren with smae name arent deleted? Or use a redirect?
+//        $name ="Samanta Weimann";
         $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('AppBundle:Child')->find($id);
-
+        $entity = $em->getRepository('AppBundle:Child')->findOneByName($childName);
+//        dump($test);
+//        $entity = $em->getRepository('AppBundle:Child')->find($id);
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Child entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
+        $deleteForm = $this->createDeleteForm($childName);
 
         return array(
             'entity'      => $entity,
@@ -127,22 +129,23 @@ class ChildController extends Controller
     /**
      * Displays a form to edit an existing Child entity.
      *
-     * @Route("/{id}/edit", name="child_edit")
+     * @Route("/edit", name="child_edit")
      * @Method("GET")
      * @Template()
      */
-    public function editAction($id)
+
+    public function editAction($childName)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Child')->find($id);
+        $entity = $em->getRepository('AppBundle:Child')->findOneByName($childName);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Child entity.');
         }
 
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
+        $deleteForm = $this->createDeleteForm($childName);
 
         return array(
             'entity'      => $entity,
@@ -160,8 +163,10 @@ class ChildController extends Controller
     */
     private function createEditForm(Child $entity)
     {
+//        $parentName ="John";
+//        $parentName = $entity->getParent()->getUsername();
         $form = $this->createForm(new ChildType(), $entity, array(
-            'action' => $this->generateUrl('child_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl('child_update', array('parentName' =>$this->getUser()->getUsername(),'childName' => $entity->getName())),
             'method' => 'PUT',
         ));
 
@@ -172,28 +177,28 @@ class ChildController extends Controller
     /**
      * Edits an existing Child entity.
      *
-     * @Route("/{id}", name="child_update")
+     * @Route("/", name="child_update")
      * @Method("PUT")
      * @Template("AppBundle:Child:edit.html.twig")
      */
-    public function updateAction(Request $request, $id)
+    public function updateAction(Request $request, $childName)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Child')->find($id);
+        $entity = $em->getRepository('AppBundle:Child')->findOneByName($childName);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Child entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
+        $deleteForm = $this->createDeleteForm($childName);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('child_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('child_edit', array('parentName' =>$this->getUser()->getUsername(), 'childName' => $childName)));
         }
 
         return array(
@@ -205,17 +210,17 @@ class ChildController extends Controller
     /**
      * Deletes a Child entity.
      *
-     * @Route("/{id}", name="child_delete")
+     * @Route("/", name="child_delete")
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction(Request $request, $childName)
     {
-        $form = $this->createDeleteForm($id);
+        $form = $this->createDeleteForm($childName);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('AppBundle:Child')->find($id);
+            $entity = $em->getRepository('AppBundle:Child')->findOneByName($childName);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Child entity.');
@@ -235,10 +240,10 @@ class ChildController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id)
+    private function createDeleteForm($childName)
     {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('child_delete', array('id' => $id)))
+                return $this->createFormBuilder()
+            ->setAction($this->generateUrl('child_delete', array('parentName' =>$this->getUser()->getUsername(), 'childName' => $childName)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()

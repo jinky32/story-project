@@ -39,23 +39,32 @@ class ProfileController extends Controller
      * @Route("/profile/{username}")
      * @Method({"GET"})
      */
-    public function showAction()
+    public function showAction($username)
     {
-        $user = $this->get('security.token_storage')->getToken()->getUser();
+        //This function allows for public profiles / profile URLs by taking the URL param as an argument to query to DB however
+        //the childController method for a child's profile should use the username of the logged in user so that only they can see the pages.
+        //TODO consider http://symfony.com/doc/current/best_practices/security.html#the-security-annotation as an alternative way to lock down some content
+//        $user = $this->get('security.token_storage')->getToken()->getUser();
 
-        //todo write a query in ChildRepo to get children by parentid, then call this here
+        $user = $this->get('fos_user.user_manager')->findUserByUsername($username);
+
         $em = $this->getDoctrine()->getManager();
         $children = $em->getRepository('AppBundle:Child')
             ->findChildrenByParent($user->getId());
-//        ->learnDQL();
-       // $parentsChlidren = $children->getParent()->getName();
+//        $newUser = $this->get('fos_user.user_manager')->findUserByUsername($username);
+//        dump($newUser);
 
-        $user = $this->getUser();
-        if (!is_object($user) || !$user instanceof UserInterface) {
-            throw new AccessDeniedException('This user does not have access to this section.');
-        }
-        dump($children);
-        return $this->render('FOSUserBundle:Profile:show.html.twig', array(
+
+        //begin test to see if signed in user is the owner of the profile
+//        $user = $this->getUser();
+//        if (!is_object($user) || !$user instanceof UserInterface) {
+//            throw new AccessDeniedException('This user does not have access to this section.');
+//        }
+
+        //end test to see if signed in user is the owner of the profile
+
+        dump($user);
+        return $this->render('@App/Profile/show.html.twig', array(
             'user' => $user,
             'children' => $children
         ));

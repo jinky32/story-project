@@ -1,36 +1,67 @@
-{% extends '::base.html.twig' %}
+{#{% extends '::base.html.twig' %}#}
+{% embed 'AppBundle::base.html.twig' %}
 
-{% block body -%}
-    <h1>Child</h1>
+    {% block content_div_start %}<div class="content">{% endblock content_div_start %}
+    {% block page_header %}
+        <div class="page-header">
+            <h1>{% block headline %}{{ entity.name }}'s Profile Page{% endblock headline %}</h1>
+        </div>
+    {% endblock page_header %}
+    {% block content_row %}
+        <div class="row">
+            {% block content %}
+                <div class="col-sm-9">
+                    {% block content_content %}
 
-    <table class="record_properties">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ entity.name }}</td>
-            </tr>
-            <tr>
-                <th>Dateofbirth</th>
-                <td>{{ entity.dateOfBirth|date('Y-m-d H:i:s') }}</td>
-            </tr>
-        </tbody>
-    </table>
+                        <table class="record_properties">
+                            <tbody>
+                            <tr>
+                                <th>Id</th>
+                                <td>{{ entity.id }}</td>
+                            </tr>
+                            <tr>
+                                <th>Name</th>
+                                <td>{{ entity.name }}</td>
+                            </tr>
+                            <tr>
+                                <th>Dateofbirth</th>
+                                <td>{{ entity.dateOfBirth|date('Y-m-d H:i:s') }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <ul class="record_actions">
+                            <li>
+                                <a href="{{ path('child', { 'parentName':app.user.username, 'childName': entity.name }) }}">
+                                    Back to the list
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ path('child_edit', { 'parentName':app.user.username, 'childName': entity.name }) }}">
+                                {#<a href="{{ path('child_edit', { 'id': entity.id }) }}">#}
+                                    Edit
+                                </a>
+                            </li>
+                            <li>{{ form(delete_form) }}</li>
+                        </ul>
+                    {% endblock content_content %}
+                </div>
+                {#<div class="col-sm-3">#}
+                    {#{% block content_sidebar %}#}
+                        {#<h2>Listed Children</h2>#}
+                        {#<ul>#}
+                            {#{% for child in children %}#}
+                                {#<li>{{ child.name|e }}</li>#}
+                                {#<li><a href="{{ path('child_show', { 'id': child.id }) }}">{{ child.name|e }}</a>#}
+                                    {#<a href="{{ path('child_edit', { 'id': child.id }) }}">(edit)</a></li>#}
+                            {#{% endfor %}#}
+                        {#</ul>#}
+                    {#{% endblock content_sidebar %}#}
+                {#</div>#}
+            {% endblock content %}
+        </div>
+    {% endblock content_row %}
+    {% block content_div_end %}</div>{% endblock content_div_end %}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('child') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('child_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
-{% endblock %}
+{% endembed %}
+
+

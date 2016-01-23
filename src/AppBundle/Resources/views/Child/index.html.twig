@@ -15,16 +15,21 @@
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('child_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td><a href="{{ path('child_show', { 'parentName':app.user.username, 'childName': entity.name }) }}">{{ entity.name }}</a></td>
                 <td>{{ entity.name }}</td>
                 <td>{% if entity.dateOfBirth %}{{ entity.dateOfBirth|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>
                 <ul>
                     <li>
-                        <a href="{{ path('child_show', { 'id': entity.id }) }}">show</a>
+                        <a href="{{ path('child_show', { 'parentName':app.user.username, 'childName': entity.name }) }}">show</a>
                     </li>
                     <li>
-                        <a href="{{ path('child_edit', { 'id': entity.id }) }}">edit</a>
+                        <a href="{{ path('child_edit', { 'parentName':app.user.username, 'childName': entity.name }) }}">edit</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('child_new', { 'parentName':app.user.username, 'childName': entity.name }) }}">
+                            Create a new entry
+                        </a>
                     </li>
                 </ul>
                 </td>
@@ -33,11 +38,11 @@
         </tbody>
     </table>
 
-        <ul>
-        <li>
-            <a href="{{ path('child_new') }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
+        {#<ul>#}
+        {#<li>#}
+            {#<a href="{{ path('child_new') }}">#}
+                {#Create a new entry#}
+            {#</a>#}
+        {#</li>#}
+    {#</ul>#}
     {% endblock %}

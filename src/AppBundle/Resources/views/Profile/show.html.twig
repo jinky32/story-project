@@ -1,6 +1,50 @@
-{% extends "FOSUserBundle::layout.html.twig" %}
+{#{% extends "FOSUserBundle::layout.html.twig" %}#}
 
-{% block fos_user_content %}
-{#{% include "FOSUserBundle:Profile:show_content.html.twig" %}#}
-    {% include "@App/Profile/show_content.html.twig" %}
-{% endblock fos_user_content %}
+{#{% block fos_user_content %}#}
+{#&#123;&#35;{% include "FOSUserBundle:Profile:show_content.html.twig" %}&#35;&#125;#}
+    {#{% include "@App/Profile/show_content.html.twig" %}#}
+{#{% endblock fos_user_content %}#}
+
+{#{% extends '@MopaBootstrap/base.html.twig' %}#}
+{% embed 'AppBundle::base.html.twig' %}
+
+
+{% block content_div_start %}<div class="content">{% endblock content_div_start %}
+    {% block page_header %}
+        <div class="page-header">
+            <h1>{% block headline %}{{ user.username }}'s Profile Page{% endblock headline %}</h1>
+        </div>
+    {% endblock page_header %}
+    {% block content_row %}
+        <div class="row">
+            {% block content %}
+                <div class="col-sm-9">
+                    {% block content_content %}
+                        {% block fos_user_content %}
+                            {% include "@App/Profile/show_content.html.twig" %}
+                        {% endblock fos_user_content %}
+                    {% endblock content_content %}
+                </div>
+                <div class="col-sm-3">
+                    {% block content_sidebar %}
+                        {#<h2>Test</h2>#}
+                    {#{{  newUser. }}#}
+                        {%if is_granted("ROLE_USER") and app.user.username == user.username%}
+                        <h2>Listed Children</h2>
+                            {{ dump(user.username) }}
+                        <ul>
+                            {% for child in children %}
+                                {#<li>{{ child.name|e }}</li>#}
+                                <li><a href="{{ path('child_show', {'parentName': app.user.username , 'childName': child.name }) }}">{{ child.name|e }}</a>
+                                    <a href="{{ path('child_edit', {'parentName': app.user.username , 'childName': child.name }) }}">(edit)</a></li>
+                            {% endfor %}
+                        </ul>
+                        {%endif%}
+                    {% endblock content_sidebar %}
+                </div>
+            {% endblock content %}
+        </div>
+    {% endblock content_row %}
+    {% block content_div_end %}</div>{% endblock content_div_end %}
+
+{% endembed %}
