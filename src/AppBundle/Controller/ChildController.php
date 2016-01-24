@@ -6,246 +6,135 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Child;
 use AppBundle\Form\ChildType;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+//use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 /**
  * Child controller.
  *
- * @Route("/profile/{parentName}/{childName}")
+ * @Route("/child")
  */
 class ChildController extends Controller
 {
-
     /**
      * Lists all Child entities.
      *
-     * @Route("/all", name="child")
+     * @Route("/", name="child_index")
      * @Method("GET")
-     * @Template()
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Child')->findAll();
+        $children = $em->getRepository('AppBundle:Child')->findAll();
 
-        return array(
-            'entities' => $entities,
-        );
+        return $this->render('child/index.html.twig', array(
+            'children' => $children,
+        ));
     }
+
     /**
      * Creates a new Child entity.
      *
-     * @Route("/", name="child_create")
-     * @Method("POST")
-     * @Template("AppBundle:Child:new.html.twig")
+     * @Route("/new", name="child_new")
+     * @Method({"GET", "POST"})
      */
-    public function createAction(Request $request)
+    public function newAction(Request $request)
     {
-        $entity = new Child();
-        $form = $this->createCreateForm($entity);
+        $child = new Child();
+        $form = $this->createForm('AppBundle\Form\ChildType', $child);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
+            $em->persist($child);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('child_show', array('parentName' =>$this->getUser()->getUsername(), 'childName' => $entity->getName())));
+            return $this->redirectToRoute('child_show', array('id' => $child->getId()));
         }
 
-        return array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        );
-    }
-
-    /**
-     * Creates a form to create a Child entity.
-     *
-     * @param Child $entity The entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createCreateForm(Child $entity)
-    {
-        $form = $this->createForm(new ChildType(), $entity, array(
-            'action' => $this->generateUrl('child_create'),
-            'method' => 'POST',
+        return $this->render('child/new.html.twig', array(
+            'child' => $child,
+            'form' => $form->createView(),
         ));
-
-        $form->add('submit', 'submit', array('label' => 'Create'));
-
-        return $form;
-    }
-
-    /**
-     * Displays a form to create a new Child entity.
-     *
-     * @Route("/new", name="child_new")
-     * @Method("GET")
-     * @Template()
-     */
-    public function newAction()
-    {
-        $entity = new Child();
-        $form   = $this->createCreateForm($entity);
-
-        return array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        );
     }
 
     /**
      * Finds and displays a Child entity.
      *
-     * @Route("/", name="child_show")
+     * @Route("/{id}", name="child_show")
      * @Method("GET")
-     * @Template()
      */
-    public function showAction($childName)
+    public function showAction(Child $child)
     {
-        //TODO update the show, edit, update and delete action so that we can use childs name in URL rather than ID.  Need ot use parent name or some unique ID so chlidren with smae name arent deleted? Or use a redirect?
-//        $name ="Samanta Weimann";
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AppBundle:Child')->findOneByName($childName);
-//        dump($test);
-//        $entity = $em->getRepository('AppBundle:Child')->find($id);
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Child entity.');
-        }
+        $deleteForm = $this->createDeleteForm($child);
 
-        $deleteForm = $this->createDeleteForm($childName);
-
-        return array(
-            'entity'      => $entity,
+        return $this->render('child/show.html.twig', array(
+            'child' => $child,
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
      * Displays a form to edit an existing Child entity.
      *
-     * @Route("/edit", name="child_edit")
-     * @Method("GET")
-     * @Template()
+     * @Route("/{id}/edit", name="child_edit")
+     * @Method({"GET", "POST"})
      */
-
-    public function editAction($childName)
+    public function editAction(Request $request, Child $child)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('AppBundle:Child')->findOneByName($childName);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Child entity.');
-        }
-
-        $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($childName);
-
-        return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        );
-    }
-
-    /**
-    * Creates a form to edit a Child entity.
-    *
-    * @param Child $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createEditForm(Child $entity)
-    {
-//        $parentName ="John";
-//        $parentName = $entity->getParent()->getUsername();
-        $form = $this->createForm(new ChildType(), $entity, array(
-            'action' => $this->generateUrl('child_update', array('parentName' =>$this->getUser()->getUsername(),'childName' => $entity->getName())),
-            'method' => 'PUT',
-        ));
-
-        $form->add('submit', 'submit', array('label' => 'Update'));
-
-        return $form;
-    }
-    /**
-     * Edits an existing Child entity.
-     *
-     * @Route("/", name="child_update")
-     * @Method("PUT")
-     * @Template("AppBundle:Child:edit.html.twig")
-     */
-    public function updateAction(Request $request, $childName)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('AppBundle:Child')->findOneByName($childName);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Child entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($childName);
-        $editForm = $this->createEditForm($entity);
+        $deleteForm = $this->createDeleteForm($child);
+        $editForm = $this->createForm('AppBundle\Form\ChildType', $child);
         $editForm->handleRequest($request);
 
-        if ($editForm->isValid()) {
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($child);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('child_edit', array('parentName' =>$this->getUser()->getUsername(), 'childName' => $childName)));
+            return $this->redirectToRoute('child_edit', array('id' => $child->getId()));
         }
 
-        return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+        return $this->render('child/edit.html.twig', array(
+            'child' => $child,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
+
     /**
      * Deletes a Child entity.
      *
-     * @Route("/", name="child_delete")
+     * @Route("/{id}", name="child_delete")
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, $childName)
+    public function deleteAction(Request $request, Child $child)
     {
-        $form = $this->createDeleteForm($childName);
+        $form = $this->createDeleteForm($child);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('AppBundle:Child')->findOneByName($childName);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Child entity.');
-            }
-
-            $em->remove($entity);
+            $em->remove($child);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('child'));
+        return $this->redirectToRoute('child_index');
     }
 
     /**
-     * Creates a form to delete a Child entity by id.
+     * Creates a form to delete a Child entity.
      *
-     * @param mixed $id The entity id
+     * @param Child $child The Child entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($childName)
+    private function createDeleteForm(Child $child)
     {
-                return $this->createFormBuilder()
-            ->setAction($this->generateUrl('child_delete', array('parentName' =>$this->getUser()->getUsername(), 'childName' => $childName)))
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('child_delete', array('id' => $child->getId())))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
         ;
     }
