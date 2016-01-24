@@ -35,8 +35,12 @@
                         <ul>
                             {% for child in children %}
                                 {#<li>{{ child.name|e }}</li>#}
-                                <li><a href="{{ path('child_show', {'parentName': app.user.username , 'childName': child.name }) }}">{{ child.name|e }}</a>
-                                    <a href="{{ path('child_edit', {'parentName': app.user.username , 'childName': child.name }) }}">(edit)</a></li>
+                                <li>
+                                    {#<a href="{{ path('child_show', {'parentName': app.user.username , 'childName': child.name }) }}">{{ child.name|e }}</a>#}
+                                    {#<a href="{{ path('child_edit', {'parentName': app.user.username , 'childName': child.name }) }}">(edit)</a>#}
+                                    <a href="{{ path('child_show', {'id': child.id }) }}">{{ child.name|e }}</a>
+                                    <a href="{{ path('child_edit', {'id': child.id }) }}">(edit)</a>
+                                </li>
                             {% endfor %}
                         </ul>
                         {%endif%}
