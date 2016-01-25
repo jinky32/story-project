@@ -13,7 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 /**
  * Child controller.
  *
- * @Route("/child")
+ * @Route("/profile/{parentName}/child")
  */
 class ChildController extends Controller
 {
@@ -22,6 +22,7 @@ class ChildController extends Controller
      *
      * @Route("/", name="child_index")
      * @Method("GET")
+     * @Template()
      */
     public function indexAction()
     {
@@ -29,9 +30,9 @@ class ChildController extends Controller
 
         $children = $em->getRepository('AppBundle:Child')->findAll();
 
-        return $this->render('child/index.html.twig', array(
+        return array(
             'children' => $children,
-        ));
+        );
     }
 
     /**
@@ -51,7 +52,7 @@ class ChildController extends Controller
             $em->persist($child);
             $em->flush();
 
-            return $this->redirectToRoute('child_show', array('id' => $child->getId()));
+            return $this->redirectToRoute('child_show', array('parentName' =>$this->getUser()->getUsername(), 'id' => $child->getId()));
         }
 
         return $this->render('child/new.html.twig', array(
@@ -65,15 +66,16 @@ class ChildController extends Controller
      *
      * @Route("/{id}", name="child_show")
      * @Method("GET")
+     * @Template()
      */
     public function showAction(Child $child)
     {
         $deleteForm = $this->createDeleteForm($child);
 
-        return $this->render('child/show.html.twig', array(
+        return array(
             'child' => $child,
             'delete_form' => $deleteForm->createView(),
-        ));
+        );
     }
 
     /**
@@ -81,6 +83,7 @@ class ChildController extends Controller
      *
      * @Route("/{id}/edit", name="child_edit")
      * @Method({"GET", "POST"})
+     * @Template()
      */
     public function editAction(Request $request, Child $child)
     {
@@ -93,14 +96,14 @@ class ChildController extends Controller
             $em->persist($child);
             $em->flush();
 
-            return $this->redirectToRoute('child_edit', array('id' => $child->getId()));
+            return $this->redirectToRoute('child_edit', array('parentName' =>$this->getUser()->getUsername(), 'id' => $child->getId()));
         }
 
-        return $this->render('child/edit.html.twig', array(
+        return array(
             'child' => $child,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        ));
+        );
     }
 
     /**
@@ -119,8 +122,8 @@ class ChildController extends Controller
             $em->remove($child);
             $em->flush();
         }
-
-        return $this->redirectToRoute('child_index');
+//        generateUrl('child_show', array('parentName' =>$this->getUser()->getUsername(), 'childName' => $entity->getName())
+        return $this->redirectToRoute('child_index', array('parentName' =>$this->getUser()->getUsername()));
     }
 
     /**
@@ -133,7 +136,7 @@ class ChildController extends Controller
     private function createDeleteForm(Child $child)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('child_delete', array('id' => $child->getId())))
+            ->setAction($this->generateUrl('child_delete', array('parentName' =>$this->getUser()->getUsername(), 'id' => $child->getId())))
             ->setMethod('DELETE')
             ->getForm()
         ;

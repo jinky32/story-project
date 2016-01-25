@@ -15,19 +15,32 @@
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('child_show', { 'parentName':app.user.username, 'childName': entity.name }) }}">{{ entity.name }}</a></td>
+                {#<td><a href="{{ path('child_show', { 'parentName':app.user.username, 'childName': entity.name }) }}">{{ entity.name }}</a></td>#}
+                <td><a href="{{ path('child_show', { 'parentName':app.user.username }) }}">{{ child.name }}</a></td>
+
                 <td>{{ entity.name }}</td>
                 <td>{% if entity.dateOfBirth %}{{ entity.dateOfBirth|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>
                 <ul>
+                    {#<li>#}
+                        {#<a href="{{ path('child_show', { 'parentName':app.user.username, 'childName': entity.name }) }}">show</a>#}
+                    {#</li>#}
+                    {#<li>#}
+                        {#<a href="{{ path('child_edit', { 'parentName':app.user.username, 'childName': entity.name }) }}">edit</a>#}
+                    {#</li>#}
+                    {#<li>#}
+                        {#<a href="{{ path('child_new', { 'parentName':app.user.username, 'childName': entity.name }) }}">#}
+                            {#Create a new entry#}
+                        {#</a>#}
+                    {#</li>#}
                     <li>
-                        <a href="{{ path('child_show', { 'parentName':app.user.username, 'childName': entity.name }) }}">show</a>
+                        <a href="{{ path('child_show', { 'parentName':app.user.username }) }}">show</a>
                     </li>
                     <li>
-                        <a href="{{ path('child_edit', { 'parentName':app.user.username, 'childName': entity.name }) }}">edit</a>
+                        <a href="{{ path('child_edit', { 'parentName':app.user.username }) }}">edit</a>
                     </li>
                     <li>
-                        <a href="{{ path('child_new', { 'parentName':app.user.username, 'childName': entity.name }) }}">
+                        <a href="{{ path('child_new', { 'parentName':app.user.username }) }}">
                             Create a new entry
                         </a>
                     </li>

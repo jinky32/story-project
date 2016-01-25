@@ -4,7 +4,7 @@
     {% block content_div_start %}<div class="content">{% endblock content_div_start %}
     {% block page_header %}
         <div class="page-header">
-            <h1>{% block headline %}{{ entity.name }}'s Profile Page{% endblock headline %}</h1>
+            <h1>{% block headline %}{{ child.name }}'s Profile Page{% endblock headline %}</h1>
         </div>
     {% endblock page_header %}
     {% block content_row %}
@@ -17,27 +17,31 @@
                             <tbody>
                             <tr>
                                 <th>Id</th>
-                                <td>{{ entity.id }}</td>
+                                <td>{{ child.id }}</td>
                             </tr>
                             <tr>
                                 <th>Name</th>
-                                <td>{{ entity.name }}</td>
+                                <td>{{ child.name }}</td>
                             </tr>
                             <tr>
                                 <th>Dateofbirth</th>
-                                <td>{{ entity.dateOfBirth|date('Y-m-d H:i:s') }}</td>
+                                <td>{{ child.dateOfBirth|date('Y-m-d H:i:s') }}</td>
                             </tr>
                             </tbody>
                         </table>
                         <ul class="record_actions">
                             <li>
-                                <a href="{{ path('child', { 'parentName':app.user.username, 'childName': entity.name }) }}">
+                                {#<a href="{{ path('child', { 'parentName':app.user.username, 'childName': entity.name }) }}">#}
+                                    {#Back to the list#}
+                                <a href="{{ path('child_index', { 'parentName':app.user.username }) }}">
                                     Back to the list
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ path('child_edit', { 'parentName':app.user.username, 'childName': entity.name }) }}">
-                                {#<a href="{{ path('child_edit', { 'id': entity.id }) }}">#}
+                                {#<a href="{{ path('child_edit', { 'parentName':app.user.username, 'childName': entity.name }) }}">#}
+                                {#&#123;&#35;<a href="{{ path('child_edit', { 'id': entity.id }) }}">&#35;&#125;#}
+                                    {#Edit#}
+                                <a href="{{ path('child_edit', { 'parentName':app.user.username, 'id':child.id }) }}">
                                     Edit
                                 </a>
                             </li>
