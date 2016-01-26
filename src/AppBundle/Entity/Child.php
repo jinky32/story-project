@@ -32,7 +32,7 @@ class Child
     private $name;
 
 /*
- * Todo - figure out how to use a date type for dateofbrith below and as well in users.yml fixtures file
+ * Todo - figure out how to use a date type for dateofbirth below and as well in users.yml fixtures file
  */
 
     /**

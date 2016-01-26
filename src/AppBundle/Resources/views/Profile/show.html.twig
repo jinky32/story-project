@@ -39,8 +39,8 @@
                                     {#<a href="{{ path('child_show', {'parentName': app.user.username , 'childName': child.name }) }}">{{ child.name|e }}</a>#}
                                     {#<a href="{{ path('child_edit', {'parentName': app.user.username , 'childName': child.name }) }}">(edit)</a>#}
                                     {#<a href="{{ path('child_show', {'parentName': app.user.username , 'id': child.id }) }}">{{ child.name|e }}</a>#}
-                                    <a href="{{ path('child_show', {'parentName': app.user.username , 'childName': child.name }) }}">{{ child.name|e }}</a>
-                                    <a href="{{ path('child_edit', {'parentName': app.user.username , 'childName': child.name }) }}">(edit)</a>
+                                    <a href="{{ path('child_show', {'parentName': app.user.username , 'name': child.name }) }}">{{ child.name|e }}</a>
+                                    <a href="{{ path('child_edit', {'parentName': app.user.username , 'name': child.name }) }}">(edit)</a>
                                 </li>
                             {% endfor %}
                         </ul>

@@ -9,18 +9,19 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Child;
 use AppBundle\Form\ChildType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 //use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 /**
  * Child controller.
  *
- * @Route("/profile/{parentName}/{childName}")
+ * @Route("/profile/{parentName}/{name}")
  */
 class ChildController extends Controller
 {
     /**
      * Lists all Child entities.
      *
-     * @Route("/", name="child_index")
+     * @Route("/all", name="child_index")
      * @Method("GET")
      * @Template()
      */
@@ -52,7 +53,7 @@ class ChildController extends Controller
             $em->persist($child);
             $em->flush();
 
-            return $this->redirectToRoute('child_show', array('parentName' =>$this->getUser()->getUsername(), 'childName' => $child->getName(), 'id' => $child->getId()));
+            return $this->redirectToRoute('child_show', array('parentName' =>$this->getUser()->getUsername(), 'name' => $child->getName(), 'id' => $child->getId()));
         }
 
         return $this->render('child/new.html.twig', array(
@@ -64,19 +65,22 @@ class ChildController extends Controller
     /**
      * Finds and displays a Child entity.
      *
-     * @Route("/{id}", name="child_show")
+     * @Route("/", name="child_show")
      * @Method("GET")
      * @Template()
+     * @ParamConverter("child", class="AppBundle:Child", options={"name" = "name"})
      */
     public function showAction(Child $child)
     {
+//        $name ="Samanta Weimann";
         $deleteForm = $this->createDeleteForm($child);
+//        $childs = $em->getRepository('AppBundle:Child')->findBy( array('name' => $name ));
 
-        $childName = $child->getName();
+//        $childName = $name->getName();
 
-        $em = $this->getDoctrine()->getManager();
-        $test = $em->getRepository('AppBundle:Child')->findOneByName($childName);
-        dump($test);
+//        $em = $this->getDoctrine()->getManager();
+//        $test = $em->getRepository('AppBundle:Child')->findOneByName($name);
+//        dump($test);
 
         return array(
             'child' => $child,
@@ -87,7 +91,7 @@ class ChildController extends Controller
     /**
      * Displays a form to edit an existing Child entity.
      *
-     * @Route("/{id}/edit", name="child_edit")
+     * @Route("/edit", name="child_edit")
      * @Method({"GET", "POST"})
      * @Template()
      */
@@ -102,7 +106,7 @@ class ChildController extends Controller
             $em->persist($child);
             $em->flush();
 
-            return $this->redirectToRoute('child_edit', array('parentName' =>$this->getUser()->getUsername(), 'childName' => $child->getName(), 'id' => $child->getId()));
+            return $this->redirectToRoute('child_edit', array('parentName' =>$this->getUser()->getUsername(), 'name' => $child->getName(), 'id' => $child->getId()));
         }
 
         return array(
@@ -115,7 +119,7 @@ class ChildController extends Controller
     /**
      * Deletes a Child entity.
      *
-     * @Route("/{id}", name="child_delete")
+     * @Route("/", name="child_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Child $child)
@@ -142,7 +146,7 @@ class ChildController extends Controller
     private function createDeleteForm(Child $child)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('child_delete', array('parentName' =>$this->getUser()->getUsername(), 'childName' => $child->getName(), 'id' => $child->getId())))
+            ->setAction($this->generateUrl('child_delete', array('parentName' =>$this->getUser()->getUsername(), 'name' => $child->getName(), 'id' => $child->getId())))
             ->setMethod('DELETE')
             ->getForm()
         ;
