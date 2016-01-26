@@ -16,7 +16,7 @@
         {% for entity in entities %}
             <tr>
                 {#<td><a href="{{ path('child_show', { 'parentName':app.user.username, 'childName': entity.name }) }}">{{ entity.name }}</a></td>#}
-                <td><a href="{{ path('child_show', { 'parentName':app.user.username }) }}">{{ child.name }}</a></td>
+                <td><a href="{{ path('child_show', { 'parentName':app.user.username, 'childName': child.name }) }}">{{ child.name }}</a></td>
 
                 <td>{{ entity.name }}</td>
                 <td>{% if entity.dateOfBirth %}{{ entity.dateOfBirth|date('Y-m-d H:i:s') }}{% endif %}</td>
@@ -34,13 +34,13 @@
                         {#</a>#}
                     {#</li>#}
                     <li>
-                        <a href="{{ path('child_show', { 'parentName':app.user.username }) }}">show</a>
+                        <a href="{{ path('child_show', { 'parentName':app.user.username, 'childName': child.name }) }}">show</a>
                     </li>
                     <li>
-                        <a href="{{ path('child_edit', { 'parentName':app.user.username }) }}">edit</a>
+                        <a href="{{ path('child_edit', { 'parentName':app.user.username, 'childName': child.name }) }}">edit</a>
                     </li>
                     <li>
-                        <a href="{{ path('child_new', { 'parentName':app.user.username }) }}">
+                        <a href="{{ path('child_new', { 'parentName':app.user.username, 'childName': child.name }) }}">
                             Create a new entry
                         </a>
                     </li>

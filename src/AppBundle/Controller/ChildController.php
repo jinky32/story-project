@@ -13,7 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 /**
  * Child controller.
  *
- * @Route("/profile/{parentName}/child")
+ * @Route("/profile/{parentName}/{childName}")
  */
 class ChildController extends Controller
 {
@@ -52,7 +52,7 @@ class ChildController extends Controller
             $em->persist($child);
             $em->flush();
 
-            return $this->redirectToRoute('child_show', array('parentName' =>$this->getUser()->getUsername(), 'id' => $child->getId()));
+            return $this->redirectToRoute('child_show', array('parentName' =>$this->getUser()->getUsername(), 'childName' => $child->getName(), 'id' => $child->getId()));
         }
 
         return $this->render('child/new.html.twig', array(
@@ -71,6 +71,12 @@ class ChildController extends Controller
     public function showAction(Child $child)
     {
         $deleteForm = $this->createDeleteForm($child);
+
+        $childName = $child->getName();
+
+        $em = $this->getDoctrine()->getManager();
+        $test = $em->getRepository('AppBundle:Child')->findOneByName($childName);
+        dump($test);
 
         return array(
             'child' => $child,
@@ -96,7 +102,7 @@ class ChildController extends Controller
             $em->persist($child);
             $em->flush();
 
-            return $this->redirectToRoute('child_edit', array('parentName' =>$this->getUser()->getUsername(), 'id' => $child->getId()));
+            return $this->redirectToRoute('child_edit', array('parentName' =>$this->getUser()->getUsername(), 'childName' => $child->getName(), 'id' => $child->getId()));
         }
 
         return array(
@@ -136,7 +142,7 @@ class ChildController extends Controller
     private function createDeleteForm(Child $child)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('child_delete', array('parentName' =>$this->getUser()->getUsername(), 'id' => $child->getId())))
+            ->setAction($this->generateUrl('child_delete', array('parentName' =>$this->getUser()->getUsername(), 'childName' => $child->getName(), 'id' => $child->getId())))
             ->setMethod('DELETE')
             ->getForm()
         ;

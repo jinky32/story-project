@@ -9,7 +9,7 @@
     <li>
         {#<a href="{{ path('child', { 'parentName':app.user.username, 'childName': entity.name }) }}">#}
             {#Back to the list#}
-        <a href="{{ path('child_index', { 'parentName':app.user.username }) }}">
+        <a href="{{ path('child_index', { 'parentName':app.user.username, 'childName': child.name }) }}">
             Back to the list
         </a>
     </li>
