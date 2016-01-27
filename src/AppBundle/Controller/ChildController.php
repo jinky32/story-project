@@ -20,7 +20,7 @@ class ChildController extends Controller
     /**
      * Lists all Child entities.
      *
-     * @Route("/", name="child_index")
+     * @Route("/all", name="child_index")
      * @Method("GET")
      * @Template()
      */
@@ -72,11 +72,11 @@ class ChildController extends Controller
     {
         $deleteForm = $this->createDeleteForm($child);
 
-        $childName = $child->getName();
+//        $childName = $child->getName();
 
-        $em = $this->getDoctrine()->getManager();
-        $test = $em->getRepository('AppBundle:Child')->findOneByName($childName);
-        dump($test);
+//        $em = $this->getDoctrine()->getManager();
+//        $test = $em->getRepository('AppBundle:Child')->findOneByName($childName);
+//        dump($test);
 
         return array(
             'child' => $child,
@@ -84,10 +84,39 @@ class ChildController extends Controller
         );
     }
 
+//
+//    /**
+//     * Finds and displays a Child entity.
+//     *
+//     * @Route("/", name="child_show")
+//     * @Method("GET")
+//     * @Template()
+//     */
+//    public function showAction(Child $childName)
+//    {
+//        //TODO update the show, edit, update and delete action so that we can use childs name in URL rather than ID.  Need ot use parent name or some unique ID so chlidren with smae name arent deleted? Or use a redirect?
+////        $name ="Samanta Weimann";
+//        $em = $this->getDoctrine()->getManager();
+//        $entity = $em->getRepository('AppBundle:Child')->findOneByName($childName);
+////        dump($test);
+////        $entity = $em->getRepository('AppBundle:Child')->find($id);
+//        if (!$entity) {
+//            throw $this->createNotFoundException('Unable to find Child entity.');
+//        }
+//
+//        $deleteForm = $this->createDeleteForm($childName);
+//
+//        return array(
+//            'entity'      => $entity,
+//            'delete_form' => $deleteForm->createView(),
+//        );
+//    }
+
+
     /**
      * Displays a form to edit an existing Child entity.
      *
-     * @Route("/{id}/edit", name="child_edit")
+     * @Route("/edit", name="child_edit")
      * @Method({"GET", "POST"})
      * @Template()
      */
@@ -115,7 +144,7 @@ class ChildController extends Controller
     /**
      * Deletes a Child entity.
      *
-     * @Route("/{id}", name="child_delete")
+     * @Route("/", name="child_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Child $child)
