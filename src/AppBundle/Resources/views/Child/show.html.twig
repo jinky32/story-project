@@ -33,7 +33,7 @@
                             <li>
                                 {#<a href="{{ path('child', { 'parentName':app.user.username, 'childName': entity.name }) }}">#}
                                     {#Back to the list#}
-                                <a href="{{ path('child_index', { 'parentName':app.user.username, 'childName': child.name }) }}">
+                                <a href="{{ path('child_index', { 'parentName':app.user.username, 'name': child.name  }) }}">
                                     Back to the list
                                 </a>
                             </li>
@@ -41,7 +41,7 @@
                                 {#<a href="{{ path('child_edit', { 'parentName':app.user.username, 'childName': entity.name }) }}">#}
                                 {#&#123;&#35;<a href="{{ path('child_edit', { 'id': entity.id }) }}">&#35;&#125;#}
                                     {#Edit#}
-                                <a href="{{ path('child_edit', { 'parentName':app.user.username, 'childName': child.name}) }}">
+                                <a href="{{ path('child_edit', { 'parentName':app.user.username, 'name': child.name  }) }}">
                                     Edit
                                 </a>
                             </li>
@@ -67,5 +67,4 @@
     {% block content_div_end %}</div>{% endblock content_div_end %}
 
 {% endembed %}
-
 

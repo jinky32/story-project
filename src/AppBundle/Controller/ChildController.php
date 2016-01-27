@@ -9,11 +9,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Child;
 use AppBundle\Form\ChildType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 //use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 /**
  * Child controller.
  *
- * @Route("/profile/{parentName}/{childName}")
+ * @Route("/profile/{parentName}/{name}")
+ * Todo change parentName to the name of the variable in the User class (see ProfileController)
+ * Todo make sure that a profile is only displayed if both the parentname and childname are correct. Maybe do this in twig similar to how list of children is protected or in the showAction
  */
 class ChildController extends Controller
 {
@@ -52,7 +55,7 @@ class ChildController extends Controller
             $em->persist($child);
             $em->flush();
 
-            return $this->redirectToRoute('child_show', array('parentName' =>$this->getUser()->getUsername(), 'childName' => $child->getName(), 'id' => $child->getId()));
+            return $this->redirectToRoute('child_show', array('parentName' =>$this->getUser()->getUsername(), 'name' => $child->getName(), 'id' => $child->getId()));
         }
 
         return $this->render('child/new.html.twig', array(
@@ -64,18 +67,21 @@ class ChildController extends Controller
     /**
      * Finds and displays a Child entity.
      *
-     * @Route("/{id}", name="child_show")
+     * @Route("/", name="child_show")
      * @Method("GET")
      * @Template()
+     * @ParamConverter("child", class="AppBundle:Child", options={"name" = "name"})
      */
     public function showAction(Child $child)
     {
+//        $name ="Samanta Weimann";
         $deleteForm = $this->createDeleteForm($child);
+//        $childs = $em->getRepository('AppBundle:Child')->findBy( array('name' => $name ));
 
-//        $childName = $child->getName();
+//        $childName = $name->getName();
 
 //        $em = $this->getDoctrine()->getManager();
-//        $test = $em->getRepository('AppBundle:Child')->findOneByName($childName);
+//        $test = $em->getRepository('AppBundle:Child')->findOneByName($name);
 //        dump($test);
 
         return array(
@@ -83,35 +89,6 @@ class ChildController extends Controller
             'delete_form' => $deleteForm->createView(),
         );
     }
-
-//
-//    /**
-//     * Finds and displays a Child entity.
-//     *
-//     * @Route("/", name="child_show")
-//     * @Method("GET")
-//     * @Template()
-//     */
-//    public function showAction(Child $childName)
-//    {
-//        //TODO update the show, edit, update and delete action so that we can use childs name in URL rather than ID.  Need ot use parent name or some unique ID so chlidren with smae name arent deleted? Or use a redirect?
-////        $name ="Samanta Weimann";
-//        $em = $this->getDoctrine()->getManager();
-//        $entity = $em->getRepository('AppBundle:Child')->findOneByName($childName);
-////        dump($test);
-////        $entity = $em->getRepository('AppBundle:Child')->find($id);
-//        if (!$entity) {
-//            throw $this->createNotFoundException('Unable to find Child entity.');
-//        }
-//
-//        $deleteForm = $this->createDeleteForm($childName);
-//
-//        return array(
-//            'entity'      => $entity,
-//            'delete_form' => $deleteForm->createView(),
-//        );
-//    }
-
 
     /**
      * Displays a form to edit an existing Child entity.
@@ -131,7 +108,7 @@ class ChildController extends Controller
             $em->persist($child);
             $em->flush();
 
-            return $this->redirectToRoute('child_edit', array('parentName' =>$this->getUser()->getUsername(), 'childName' => $child->getName(), 'id' => $child->getId()));
+            return $this->redirectToRoute('child_edit', array('parentName' =>$this->getUser()->getUsername(), 'name' => $child->getName(), 'id' => $child->getId()));
         }
 
         return array(
@@ -171,7 +148,7 @@ class ChildController extends Controller
     private function createDeleteForm(Child $child)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('child_delete', array('parentName' =>$this->getUser()->getUsername(), 'childName' => $child->getName(), 'id' => $child->getId())))
+            ->setAction($this->generateUrl('child_delete', array('parentName' =>$this->getUser()->getUsername(), 'name' => $child->getName(), 'id' => $child->getId())))
             ->setMethod('DELETE')
             ->getForm()
         ;
