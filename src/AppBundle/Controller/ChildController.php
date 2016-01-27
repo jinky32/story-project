@@ -14,7 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 /**
  * Child controller.
  *
- * @Route("/profile/{parentName}/{name}")
+ * @Route("/profile/{userName}/{name}")
  * Todo change parentName to the name of the variable in the User class (see ProfileController)
  * Todo make sure that a profile is only displayed if both the parentname and childname are correct. Maybe do this in twig similar to how list of children is protected or in the showAction
  */
@@ -55,7 +55,7 @@ class ChildController extends Controller
             $em->persist($child);
             $em->flush();
 
-            return $this->redirectToRoute('child_show', array('parentName' =>$this->getUser()->getUsername(), 'name' => $child->getName(), 'id' => $child->getId()));
+            return $this->redirectToRoute('child_show', array('userName' =>$this->getUser()->getUsername(), 'name' => $child->getName(), 'id' => $child->getId()));
         }
 
         return $this->render('child/new.html.twig', array(
@@ -72,7 +72,7 @@ class ChildController extends Controller
      * @Template()
      * @ParamConverter("child", class="AppBundle:Child", options={"name" = "name"})
      */
-    public function showAction(Child $child)
+    public function showAction(Child $child, $userName)
     {
 //        $name ="Samanta Weimann";
         $deleteForm = $this->createDeleteForm($child);
@@ -84,10 +84,21 @@ class ChildController extends Controller
 //        $test = $em->getRepository('AppBundle:Child')->findOneByName($name);
 //        dump($test);
 
-        return array(
-            'child' => $child,
-            'delete_form' => $deleteForm->createView(),
-        );
+       // dump($child);
+//        $parentName = $child->getParent()->getUsername();
+//        $secondParent = $this->getUser()->getUsername();
+//dump($parentName);
+//        dump($secondParent);
+
+        if($child->getParent()->getUsername() == $userName){
+
+            return array(
+                'child' => $child,
+                'delete_form' => $deleteForm->createView(),
+            );
+        }
+
+
     }
 
     /**
@@ -108,7 +119,7 @@ class ChildController extends Controller
             $em->persist($child);
             $em->flush();
 
-            return $this->redirectToRoute('child_edit', array('parentName' =>$this->getUser()->getUsername(), 'name' => $child->getName(), 'id' => $child->getId()));
+            return $this->redirectToRoute('child_edit', array('userName' =>$this->getUser()->getUsername(), 'name' => $child->getName(), 'id' => $child->getId()));
         }
 
         return array(
@@ -135,7 +146,7 @@ class ChildController extends Controller
             $em->flush();
         }
 //        generateUrl('child_show', array('parentName' =>$this->getUser()->getUsername(), 'childName' => $entity->getName())
-        return $this->redirectToRoute('child_index', array('parentName' =>$this->getUser()->getUsername()));
+        return $this->redirectToRoute('child_index', array('userName' =>$this->getUser()->getUsername()));
     }
 
     /**
@@ -148,7 +159,7 @@ class ChildController extends Controller
     private function createDeleteForm(Child $child)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('child_delete', array('parentName' =>$this->getUser()->getUsername(), 'name' => $child->getName(), 'id' => $child->getId())))
+            ->setAction($this->generateUrl('child_delete', array('userName' =>$this->getUser()->getUsername(), 'name' => $child->getName(), 'id' => $child->getId())))
             ->setMethod('DELETE')
             ->getForm()
         ;
