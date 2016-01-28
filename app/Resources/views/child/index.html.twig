@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Child list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Dateofbirth</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for child in children %}
+            <tr>
+                <td><a href="{{ path('child_show', { 'id': child.id }) }}">{{ child.id }}</a></td>
+                <td>{{ child.name }}</td>
+                <td>{% if child.dateOfBirth %}{{ child.dateOfBirth|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('child_show', { 'id': child.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('child_edit', { 'id': child.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('child_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}
