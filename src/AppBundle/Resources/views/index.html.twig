@@ -7,8 +7,14 @@
 {% block content_div_start %}<div class="content">{% endblock content_div_start %}
     {% block page_header %}
         <div class="page-header">
-            <h1>{% block headline %}{{ name | upper }}{% endblock headline %}</h1>
-            <h2>{{ locale }}</h2>
+            <h1>{% block headline %}Hello
+                    {% if app.user %}
+                        {{ app.user.username}}
+                    {% else %}
+                       Noone!
+                    {% endif %}
+                {% endblock headline %}</h1>
+            <h2></h2>
         </div>
     {% endblock page_header %}
 {% block content_div_end %}</div>{% endblock content_div_end %}

@@ -3,49 +3,30 @@
 namespace AppBundle\Controller;
 
 //use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+
 
 //class HelloController extends Controller
-/**
- * @Route(service="app.hello_controller")
- */
-class DefaultController
+
+class DefaultController extends Controller
 {
 
-    private $templating;
-
-    public function __construct(EngineInterface $templating)
-    {
-        $this->templating = $templating;
-    }
 
     /**
-     * @Route("/hello/{name}", name="hello")
-     *
+     * @Route("/")
+     * @Template("@App/index.html.twig")
      */
-    public function indexAction($name, Request $request)
+    public function indexAction()
     {
-        $locale = $request->getLocale();
-        return $this->templating->renderResponse(
-            'AppBundle::index.html.twig',
-            array('name' => $name,
-                'locale' => $locale)
+//        $userName = $this->getUser()->getUsername();
+        return array('greeting' => "hello"
         );
     }
 
-    /**
-     * @Route("/stuart", name="stuart")
-     *
-     */
-    public function stuartAction(Request $request){
 
-
-
-//            $locale = $request->getLocale();
-//            return print_r($locale);
-
-    }
 }
