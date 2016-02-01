@@ -1,5 +1,6 @@
 {
     "name": "symfony/framework-standard-edition",
+    "minimum-stability" : "dev",
     "license": "MIT",
     "type": "project",
     "description": "The \"Symfony Standard Edition\" distribution",
@@ -29,7 +30,11 @@
     },
     "require-dev": {
         "symfony/phpunit-bridge": "~2.7",
-        "doctrine/doctrine-fixtures-bundle": "^2.3"
+        "doctrine/doctrine-fixtures-bundle": "^2.3",
+        "behat/behat": "^3.0",
+        "behat/symfony2-extension": "^2.1",
+        "behat/mink-extension": "^2.1",
+        "behat/mink-goutte-driver": "^1.2"
     },
     "scripts": {
         "post-install-cmd": [
