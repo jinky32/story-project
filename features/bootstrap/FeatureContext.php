@@ -21,4 +21,15 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
     public function __construct()
     {
     }
+
+
+
+    /**
+     * @When I click :arg1
+     */
+    public function iClick($arg1)
+    {
+        throw new PendingException();
+    }
+
 }
