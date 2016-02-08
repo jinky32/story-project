@@ -29,6 +29,8 @@ var_dump(substr($page->getText(), 0, 75));
 
 $header = $page->find('css', '.main');
 
+
+
 $header = $page->findLink('Tablets');
 $header->click();
 var_dump($session->getCurrentUrl());
